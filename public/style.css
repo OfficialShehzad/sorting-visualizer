@@ -1,0 +1,17 @@
+body {
+    max-width: 100vw;
+}
+
+.array-container {
+    width: 100vw;
+    display: flex;
+    gap: 5rem;
+}
+
+.array-to-sort {
+    padding: 1rem;
+}
+
+.red {
+    color: rgb(217, 95, 95);
+}
