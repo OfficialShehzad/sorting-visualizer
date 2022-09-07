@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SelectNumbers from "./components/SelectNumbers";
 import Chart from "./components/Chart";
+import Heading from "./components/Heading";
 
 function App() {
   const [arrayToSort, setArrayToSort] = useState([])
@@ -92,6 +93,45 @@ function App() {
 
   }
 
+  const insertionSort = () => {
+    if (arraySorted) return;
+
+    steps = [];
+    let ar = arrayToSort;
+    let i, key, j;
+
+    for (i = 0; i < ar.length; i++) {
+      key = ar[i];
+      j = i - 1;
+      while (j >= 0 && ar[j] > key) {
+        ar[j+1] = ar[j];
+        j = j - 1;
+      }
+      ar[j+1] = key;
+      
+      steps.push([...ar]);
+    }
+
+    let count = 0;
+    intervalId = setInterval(() => {
+        count++
+        if (count < steps.length) {
+          setArrayToSort(steps[count])
+        }
+        if (count >= steps.length) {
+          setArraySorted(true);
+          clearInterval(intervalId);
+        }
+    }, 200);    
+  }
+
+  // const mergeSort = () => {
+  //   if (arraySorted) return;
+
+  //   steps = [];
+  //   let ar = arrayToSort;
+  // }
+
   const resetArray = () => {
     setArrayToSort([]);
     setArrayCreated(false);
@@ -100,11 +140,11 @@ function App() {
   }
 
   return (
-    <>
-      <h1>Sorting Algorithm Visualizer</h1>
+    <div className="main-container">
+      <Heading />
       <SelectNumbers onSetAmount={createNewArray} />
       {arrayCreated && (
-        <>
+        <div className="graph-container">
           <div className="array-container">
             <h2>Your array : {arrayToSort.map(element => {
             return (
@@ -112,18 +152,22 @@ function App() {
                 )
               })}</h2>
           </div>
-          <h1>{arraySorted && "Array Sorted!!!"}</h1>
-          <Chart arrayToSort={arrayToSort} />
-          <button onClick={bubbleSort}>Bubble Sort</button>
-          <button onClick={selectionSort}>Selection Sort</button>
-          <button onClick={bubbleSort}>Insertion Sort</button>
-          <button onClick={bubbleSort}>Merge Sort</button>
-        </>
+          <h1 className="array-sorted-message">{arraySorted && "Array Sorted!!!"}</h1>
+
+            <Chart arrayToSort={arrayToSort} />
+
+          <div className="button-container">
+            <button className="btn btn-blue" onClick={bubbleSort}>Bubble Sort</button>
+            <button className="btn btn-orange" onClick={selectionSort}>Selection Sort</button>
+            <button className="btn btn-green" onClick={insertionSort}>Insertion Sort</button>
+            {/* <button onClick={bubbleSort}>Merge Sort</button> */}
+          </div>
+        </div>
       )}
       {arraySorted && (
-          <button onClick={resetArray}>Reset</button>
+          <button className="btn btn-reset" onClick={resetArray}>Reset</button>
       )}
-    </>
+    </div>
   );
 }
 

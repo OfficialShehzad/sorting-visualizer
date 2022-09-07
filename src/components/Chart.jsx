@@ -27,7 +27,7 @@ for (var i = 0; i < props.arrayToSort.length; i++) {
 // console.log(data);
 
   return (
-    <div style={{maxWidth: "100vw"}}>
+    <div className='graph' style={{maxWidth: "100vw"}}>
     <BarChart
       width={props.arrayToSort.length * 20 >= 500 ? props.arrayToSort.length * 20 : 500}
       height={300}

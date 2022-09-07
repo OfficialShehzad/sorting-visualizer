@@ -16,8 +16,8 @@ const SelectNumbers = (props) => {
   return (
     <div>
         {/* <h1>{amount}</h1> */}
-        <input type="number" placeholder="enter a number..." step="10" onChange={handleChange}/>
-        <button onClick={handleClick}>Generate Random Array</button>
+        <input className='input' type="number" placeholder="enter a number..." step="10" onChange={handleChange}/>
+        <button className='btn' onClick={handleClick}>Generate Random Array</button>
     </div>
   )
 }
